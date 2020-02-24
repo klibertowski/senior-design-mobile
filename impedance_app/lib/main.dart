@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MaterialApp(
+    title: 'App',
+    home: MyApp(),
+  ));
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -23,7 +28,12 @@ class MyApp extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.all(50),
                   child: RaisedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PageOne()),
+                      );
+                    },
                     child: Text('Sign In'),
                     )
                   ),
@@ -31,6 +41,20 @@ class MyApp extends StatelessWidget {
             ),
           ),
         )
+    );
+  }
+}
+
+class PageOne extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Impedance Calculations'),
+      ),
+      body: Center(
+        child: Text('Impedance = 10'),
+      ),
     );
   }
 }
