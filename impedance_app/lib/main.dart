@@ -5,11 +5,16 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
     title: 'App',
-    home: MyApp(),
+    home: SignIn(),
   ));
 }
 
-class MyApp extends StatelessWidget {
+class SignIn extends StatefulWidget{
+  @override
+  _SignInState createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -36,6 +41,14 @@ class MyApp extends StatelessWidget {
           ),
           Container(
             child: Image.asset('assets/body.jpg'),
+          ),
+          Container(
+            padding: EdgeInsets.all(20.0),
+            child: TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Username',
+              ),
+            ),
           ),
           Container(
               margin: EdgeInsets.all(50),
@@ -65,7 +78,7 @@ class NavigationPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Navigation Home'),
-        leading: new Container(),
+        //leading: new Container(),
       ),
       body: Column(
         children: <Widget>[
@@ -135,7 +148,12 @@ class NavigationPage extends StatelessWidget {
   }
 }
 
-class Readings extends StatelessWidget {
+class Readings extends StatefulWidget{
+  @override
+  _ReadingsWidgetState createState() => _ReadingsWidgetState();
+}
+
+class _ReadingsWidgetState extends State<Readings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,7 +166,12 @@ class Readings extends StatelessWidget {
   }
 }
 
-class Graphs extends StatelessWidget {
+class Graphs extends StatefulWidget{
+  @override
+  _GraphsWidgetState createState() => _GraphsWidgetState();
+}
+
+class _GraphsWidgetState extends State<Graphs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
