@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
     title: 'App',
-    home: SignIn(),
+    home: MyApp(),
   ));
 }
 
-class SignIn extends StatefulWidget{
+class MyApp extends StatefulWidget{
   @override
-  _SignInState createState() => _SignInState();
+  _MyAppState createState() => _MyAppState();
 }
 
-class _SignInState extends State<SignIn> {
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
