@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-//import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -160,10 +160,10 @@ class NavigationPage extends StatelessWidget {
                     flex: 1,
                     child: RaisedButton(
                         onPressed: () {
-//                          Navigator.push(
-//                            context,
-//                            MaterialPageRoute(builder: (context) => BluetoothSettings()),
-//                          );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => BluetoothSettings()),
+                          );
                         },
                         shape: StadiumBorder(),
                         child: Icon(
