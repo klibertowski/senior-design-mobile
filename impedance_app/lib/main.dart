@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
           Container(
             alignment: Alignment.center,
             padding: EdgeInsets.all(20.0),
-            child: Text('Bioimpedance Tracker App',
+            child: Text(
+              'Bioimpedance Tracker App',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25.0,
@@ -42,33 +43,120 @@ class MyApp extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => PageOne()),
+                    MaterialPageRoute(builder: (context) => NavigationPage()),
                   );
                 },
-                child: Text('Sign In',
+                child: Text(
+                  'Sign In',
                   style: TextStyle(
                     fontSize: 20.0,
                   ),
                 ),
-              )
-          ),
-        ]
-        ),
+              )),
+        ]),
       ),
     );
   }
 }
 
-class PageOne extends StatelessWidget {
+class NavigationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Impedance Calculations'),
+        title: Text('Navigation Home'),
+        leading: new Container(),
       ),
-      body: Center(
-        child: Text('Impedance = 10'),
+      body: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(20.0),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    'View Readings',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ),
+                Expanded(
+                    flex: 1,
+                    child: RaisedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Readings()),
+                          );
+                        },
+                        shape: StadiumBorder(),
+                        child: Icon(
+                          Icons.arrow_right,
+                          size: 50.0,
+                        ))),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(20.0),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    'View Graphs',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ),
+                Expanded(
+                    flex: 1,
+                    child: RaisedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Graphs()),
+                          );
+                        },
+                        shape: StadiumBorder(),
+                        child: Icon(
+                          Icons.arrow_right,
+                          size: 50.0,
+                        ))),
+              ],
+            ),
+          ),
+        ],
       ),
     );
+  }
+}
+
+class Readings extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Readings History'),
+        ),
+        body: Card(
+          child: Text("Past Readings"),
+        ));
+  }
+}
+
+class Graphs extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Impedance Graphs'),
+        ),
+        body: Card(
+          child: Text("Put graph here"),
+        ));
   }
 }
