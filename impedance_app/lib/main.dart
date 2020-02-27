@@ -1,21 +1,20 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 void main() {
   runApp(MaterialApp(
     title: 'App',
-    home: MyApp(),
+    home: SignIn(),
   ));
 }
 
-class MyApp extends StatefulWidget{
+class SignIn extends StatefulWidget{
   @override
-  _MyAppState createState() => _MyAppState();
+  _SignInState createState() => _SignInState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _SignInState extends State<SignIn> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -133,36 +132,6 @@ class NavigationPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Graphs()),
-                          );
-                        },
-                        shape: StadiumBorder(),
-                        child: Icon(
-                          Icons.arrow_right,
-                          size: 50.0,
-                        ))),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(20.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 3,
-                  child: Text(
-                    'Bluetooth Settings',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                    ),
-                  ),
-                ),
-                Expanded(
-                    flex: 1,
-                    child: RaisedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => BluetoothSettings()),
                           );
                         },
                         shape: StadiumBorder(),
