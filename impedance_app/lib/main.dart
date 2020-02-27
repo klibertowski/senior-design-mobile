@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -220,6 +221,8 @@ class BluetoothSettings extends StatefulWidget{
 }
 
 class _BluetoothSettingsState extends State<BluetoothSettings> {
+  FlutterBlue bluetooth = FlutterBlue.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
