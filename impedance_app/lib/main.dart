@@ -142,6 +142,36 @@ class NavigationPage extends StatelessWidget {
               ],
             ),
           ),
+          Container(
+            padding: EdgeInsets.all(20.0),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    'Bluetooth Settings',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ),
+                Expanded(
+                    flex: 1,
+                    child: RaisedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => BluetoothSettings()),
+                          );
+                        },
+                        shape: StadiumBorder(),
+                        child: Icon(
+                          Icons.arrow_right,
+                          size: 50.0,
+                        ))),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -180,6 +210,24 @@ class _GraphsWidgetState extends State<Graphs> {
         ),
         body: Card(
           child: Text("Put graph here"),
+        ));
+  }
+}
+
+class BluetoothSettings extends StatefulWidget{
+  @override
+  _BluetoothSettingsState createState() => _BluetoothSettingsState();
+}
+
+class _BluetoothSettingsState extends State<BluetoothSettings> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Bluetooth Settings'),
+        ),
+        body: Card(
+          child: Text("Stuff"),
         ));
   }
 }
