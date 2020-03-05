@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'dart:async';
 
 void main() {
   runApp(MaterialApp(
@@ -221,16 +222,63 @@ class BluetoothSettings extends StatefulWidget{
 }
 
 class _BluetoothSettingsState extends State<BluetoothSettings> {
-  FlutterBlue bluetooth = FlutterBlue.instance;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('Bluetooth Settings'),
         ),
-        body: Card(
-          child: Text("Stuff"),
-        ));
+        body: Column(children: <Widget>[
+          Text('Stuff'),
+          RaisedButton(
+            child: Text('Connect'),
+            onPressed: connectBluetooth,
+          ),
+          Text('test')
+        ],
+        )
+
+    );
   }
 }
+
+void connectBluetooth() async{
+  final String TARGET_DEVICE_NAME = "";
+  final String SERVICE_UUID = "";
+  final String CHAR_UUID = "";
+  Future<List<int>> readData;
+
+  //make instance
+  FlutterBlue bluetooth = FlutterBlue.instance;
+  StreamSubscription<ScanResult> scanSubScription;
+
+  BluetoothDevice targetDevice;
+  BluetoothCharacteristic targetCharacteristic;
+
+  scanSubScription = bluetooth.scan().listen((scanResult){
+    if(scanResult.device.name == TARGET_DEVICE_NAME){
+      scanSubScription?.cancel();
+      scanSubScription = null;
+      targetDevice = scanResult.device;
+      connectToDevice(targetDevice);
+    }
+  });
+
+  List<BluetoothService> services = await targetDevice.discoverServices();
+  services.forEach((service){
+    if(service.uuid.toString() == SERVICE_UUID){
+      service.characteristics.forEach((characteristic){
+        if(characteristic.uuid.toString() == CHAR_UUID){
+          targetCharacteristic = characteristic;
+          readData = targetCharacteristic.read();
+        }
+      });
+    }
+  });
+
+}
+
+connectToDevice(BluetoothDevice targetDevice) async{
+  await targetDevice.connect();
+}
+
