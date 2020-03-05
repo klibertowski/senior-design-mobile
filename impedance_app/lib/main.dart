@@ -250,15 +250,15 @@ void connectBluetooth() async{
 
   //make instance
   FlutterBlue bluetooth = FlutterBlue.instance;
-  StreamSubscription<ScanResult> scanSubScription;
+  StreamSubscription<ScanResult> scanSub;
 
   BluetoothDevice targetDevice;
   BluetoothCharacteristic targetCharacteristic;
 
-  scanSubScription = bluetooth.scan().listen((scanResult){
+  scanSub = bluetooth.scan().listen((scanResult){
     if(scanResult.device.name == TARGET_DEVICE_NAME){
-      scanSubScription?.cancel();
-      scanSubScription = null;
+      scanSub?.cancel();
+      scanSub = null;
       targetDevice = scanResult.device;
       connectToDevice(targetDevice);
     }
@@ -275,7 +275,6 @@ void connectBluetooth() async{
       });
     }
   });
-
 }
 
 connectToDevice(BluetoothDevice targetDevice) async{
