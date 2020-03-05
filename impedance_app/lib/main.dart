@@ -1,7 +1,8 @@
-import 'dart:ui';
+import 'dart:ui' ;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'dart:async';
 
 void main() {
@@ -204,16 +205,68 @@ class Graphs extends StatefulWidget{
 }
 
 class _GraphsWidgetState extends State<Graphs> {
+  static var data = [
+    ImpedanceReading(1, 12),
+    ImpedanceReading(2, 42),
+    ImpedanceReading(3, 50),
+    ImpedanceReading(4, 50),
+    ImpedanceReading(5, 40),
+    ImpedanceReading(6, 30),
+    ImpedanceReading(7, 45),
+    ImpedanceReading(8, 10),
+    ImpedanceReading(9, 32)
+  ];
+
+  static var series = [
+    charts.Series<ImpedanceReading,int>(
+      domainFn: (ImpedanceReading zData, _) => zData.day,
+      measureFn: (ImpedanceReading zData, _) => zData.z,
+      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+      id: 'Impedance',
+      data: data,
+    ),
+  ];
+
+  static var chart = charts.LineChart(
+    series,
+    animate: true,
+    behaviors: [
+      new charts.ChartTitle('Day',
+        behaviorPosition: charts.BehaviorPosition.bottom,
+        titleOutsideJustification: charts.OutsideJustification.middleDrawArea),
+    new charts.ChartTitle('Impedance',
+        behaviorPosition: charts.BehaviorPosition.start,
+        titleOutsideJustification: charts.OutsideJustification.middleDrawArea)
+    ],
+  );
+
+  var chartWidget = Padding(
+    padding: EdgeInsets.all(32.0),
+    child: SizedBox(
+      height: 200.0,
+      child: chart,
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('Impedance Graphs'),
         ),
-        body: Card(
-          child: Text("Put graph here"),
+        body: Column(children: <Widget>[
+          Text("Put graph here"),
+          chartWidget,
+        ],
         ));
   }
+}
+
+class ImpedanceReading {
+  final int day;
+  final int z;
+
+  ImpedanceReading(this.day, this.z);
 }
 
 class BluetoothSettings extends StatefulWidget{
