@@ -296,7 +296,7 @@ class _BluetoothSettingsState extends State<BluetoothSettings> {
 }
 
 void connectBluetooth() async{
-  final String TARGET_DEVICE_NAME = "";
+  final String TARGET_DEVICE_NAME = "RN4870-1792";
   final String SERVICE_UUID = "";
   final String CHAR_UUID = "";
   Future<List<int>> readData;
