@@ -5,6 +5,13 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'dart:async';
 
+final String TARGET_DEVICE_NAME = "RN4870-1792";
+final String SERVICE_UUID = "";
+final String CHAR_UUID = "";
+Stream<List<int>> readStream;
+BluetoothDevice targetDevice;
+BluetoothCharacteristic targetCharacteristic;
+
 void main() {
   runApp(MaterialApp(
     title: 'App',
@@ -287,7 +294,23 @@ class _BluetoothSettingsState extends State<BluetoothSettings> {
             child: Text('Connect'),
             onPressed: connectBluetooth,
           ),
-          Text('test')
+          Text('test'),
+          StreamBuilder<List<int>>(
+            stream: readStream,  //here we're using our char's value
+            initialData: [],
+            builder: (BuildContext context, AsyncSnapshot<List<int>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              return Center(
+                child: Text(readStream.toString())
+              );
+            }
+            else{
+              return SizedBox(
+                child: Text('HELLLLLLLO'),
+              );
+            }
+            },
+          )
         ],
         )
 
@@ -296,24 +319,18 @@ class _BluetoothSettingsState extends State<BluetoothSettings> {
 }
 
 void connectBluetooth() async{
-  final String TARGET_DEVICE_NAME = "RN4870-1792";
-  final String SERVICE_UUID = "";
-  final String CHAR_UUID = "";
-  Future<List<int>> readData;
 
   //make instance
   FlutterBlue bluetooth = FlutterBlue.instance;
   StreamSubscription<ScanResult> scanSub;
 
-  BluetoothDevice targetDevice;
-  BluetoothCharacteristic targetCharacteristic;
-
   scanSub = bluetooth.scan().listen((scanResult){
     if(scanResult.device.name == TARGET_DEVICE_NAME){
-      scanSub?.cancel();
-      scanSub = null;
       targetDevice = scanResult.device;
       connectToDevice(targetDevice);
+      bluetooth.stopScan();
+      scanSub?.cancel();
+      scanSub = null;
     }
   });
 
@@ -323,7 +340,8 @@ void connectBluetooth() async{
       service.characteristics.forEach((characteristic){
         if(characteristic.uuid.toString() == CHAR_UUID){
           targetCharacteristic = characteristic;
-          readData = targetCharacteristic.read();
+          readStream = targetCharacteristic.value;
+          targetCharacteristic.setNotifyValue(!targetCharacteristic.isNotifying);
         }
       });
     }
